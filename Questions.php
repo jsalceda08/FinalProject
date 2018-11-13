@@ -7,7 +7,7 @@
     require 'connect.php';
     //require 'authenticate.php';
 
-    $query = "SELECT * FROM project ORDER BY id DESC LIMIT 5;";
+    $query = "SELECT * FROM project ORDER BY id DESC LIMIT 20;";
     $statement = $db->prepare($query); 
     $statement->execute();
 

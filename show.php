@@ -24,6 +24,23 @@
       header("Location: index.php");
       die();
     }  
+
+    //require 'connect.php';
+    //require 'authenticate.php';
+
+    $query = "SELECT * FROM comments ORDER BY id DESC LIMIT 20;";
+    $statement = $db->prepare($query); 
+    $statement->execute();
+
+
+    function truncateContent($question_content, $id) {
+      
+      if(strlen($question_content) <= 200){
+        return $question_content;
+      }
+
+      return substr($question_content,0,200)." . . . <a href='show.php?id=$id'>(Show More)</a>";
+    }
 ?>
 
 <!DOCTYPE HTML>
@@ -52,24 +69,54 @@
 	<div id="body">             
     <!-- LEFT PANEL -->             
     	<div id="leftPanel">             
-    <div id="all_questions">
-        <div class="question_post">
-            <h2><?= $row['title'] ?></h2>
-              <p>
-              <small>
-                <?= date("M d, Y, h:i A", strtotime($row['date'])) ?> -
-                <a href="edit.php?id=<?= $row['id'] ?>">edit</a>
-              </small>
-            </p>
-        <div class="question_content">
-          <?= $row['content'] ?>
+            <div id="all_questions">
+                <div class="question_post">
+                    <h2><?= $row['title'] ?></h2>
+                    <p>
+                      <small>
+                        <?= date("M d, Y, h:i A", strtotime($row['date'])) ?> -
+                        <a href="edit.php?id=<?= $row['id'] ?>">edit</a>
+                      </small>
+                    </p>
+                <div class="question_content">
+                  <?= $row['content'] ?>
+                </div>
+              </div>
+          </div> 
+        <div id="comments">
+          <form action="process_comments.php" method="post">
+            <fieldset>
+              <legend>Comments</legend>
+                  <p>
+                    <label for="name">Name</label>
+                    <input name="name" id="name">
+                  </p>
+                  <p>
+                    <label for="content">Content</label>
+                    <textarea name="content" id="content"></textarea>
+                  </p>
+                  <p>
+                    <input type="submit" name="command" value="Submit">
+                  </p>
+            </fieldset>
+          </form>
         </div>
-      </div>
-  </div> 
-   
-    <div id="all_questions">
-
-    </div>
+<!--
+        <div id="comments">
+            <div class="comments_post">
+                <h2><?= $row['name'] ?></h2>
+                  <p>
+                  <small>
+                    <?= date("M d, Y, h:i A", strtotime($row['date'])) ?> -
+                    <a href="edit.php?id=<?= $row['id'] ?>">edit</a>
+                  </small>
+                  </p>
+            <div class="question_content">
+              <?= $row['content'] ?>
+            </div>
+          </div>
+      </div> 
+-->
     </div>             
     <!-- LEFT PANEL --> 
     <!-- RIGHT PANEL -->                
