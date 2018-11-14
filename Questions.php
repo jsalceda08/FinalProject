@@ -20,6 +20,8 @@
 
       return substr($question_content,0,200)." . . . <a href='show.php?id=$id'>(Show More)</a>";
     }
+
+
 ?>
 
 <!DOCTYPE HTML>
@@ -28,6 +30,12 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>HEALTH PORTAL</title>
 <link href="style.css" rel="stylesheet" type="text/css" />
+
+<!-- Bootstrap -->
+<!--
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+-->
 </head>
 
 <body>
@@ -38,7 +46,8 @@
         <h2 class="punchline">&nbsp;</h2>
         <h2 class="punchline">&nbsp;</h2>
         <h2 class="punchline">HEALTH PORTAL</h2>            
-    	<ul>            
+    	<ul>
+            <li><a href="login.php">Login</a></li>                
             <li><a href="Questions.php" title="Questions">Questions</a></li>     
             <li><a href="" title="ABOUT US">ABOUT US</a></li>           
             <li><a href="index.php">Home</a></li>            
@@ -51,7 +60,6 @@
     	<div id="leftPanel">             
         	<h2>Questions</h2>             
           <ul id="menu">
-        <li><a href="index.php">Home</a></li>
     </ul>
     <div id="all_questions">
 
@@ -80,10 +88,9 @@
     </div> 
    
     <div id="all_questions">
-      <form action="process_post.php" method="post">
+      <form action="getting.php" method="post">
         <fieldset>
           <legend>Ask your question here!</legend>
-     
           <p>
             <label for="title">Title</label>
             <input name="title" id="title">
@@ -92,8 +99,12 @@
             <label for="content">Content</label>
             <textarea name="content" id="content"></textarea>
           </p>
+<!--
+          <img src="captcha.php" alt="Captcha Image">
+          <input type="text" name="captcha">
+-->
           <p>
-            <input type="submit" name="command" value="Create">
+            <input type="submit" name="command" value="Submit">
           </p>
         </fieldset>
       </form>

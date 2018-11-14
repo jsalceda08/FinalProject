@@ -3,7 +3,7 @@
  * Jan Salceda 0313887
  * November 5, 2018
  */
-
+session_start();
     //Contents for DB user and password
     //Allows for user to connect you database
 
