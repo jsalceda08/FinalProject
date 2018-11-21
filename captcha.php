@@ -1,5 +1,5 @@
 <?php
-session_start();
+//session_start();
 create_image();
 
 function create_image()

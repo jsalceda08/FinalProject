@@ -6,22 +6,8 @@
  * Assignment 4
  */
 
-    require 'connect.php';
-
-   
-    $query = "SELECT * FROM project ORDER BY id DESC LIMIT 5;";
-    $statement = $db->prepare($query); 
-    $statement->execute();
-
-
-    function truncateContent($project_content, $id) {
-      
-      if(strlen($project_content) <= 200){
-        return $project_content;
-      }
-
-      return substr($project_content,0,200)." . . . <a href='show.php?id=$id'>(Show More)</a>";
-    }
+    include_once('connect.php'); 
+    include_once('server.php'); 
 ?>
 
 <!DOCTYPE HTML>
@@ -40,11 +26,19 @@
         <h2 class="punchline">&nbsp;</h2>
         <h2 class="punchline">&nbsp;</h2>
         <h2 class="punchline">HEALTH PORTAL</h2>            
-    	<ul>            
-            <li><a href="Questions.php" title="Questions">Questions</a></li>
+    	<ul>
+            <?php if(isset($_SESSION['username'])): ?>
+            <li><a href="logout.php">Logout</a></li>
+            <?php else: ?>       
+            <li><a href="login.php">Login</a></li>
+            <?php endif ?>           
+            <li><a href="Questions.php?sort=title" title="Questions">Questions</a></li>
             <li><a href="" title="ABOUT US">ABOUT US</a></li>           
-            <li><a href="index.php">Home</a></li>            
-      </ul>            
+            <li><a href="index.php">Home</a></li>       
+      </ul>     
+        <?php  if (isset($_SESSION['username'])) : ?>
+    	<p>Welcome <strong><?php echo $_SESSION['username']; ?></strong></p>
+    	<?php endif ?>        
   </div>             
 <!-- HEADER ENDS -->           
 <!-- BODY STARTS -->             

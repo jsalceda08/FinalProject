@@ -1,5 +1,5 @@
 <?php
-    session_start();
+    //session_start();
     $captcha = $_POST['captcha'];
     $check = false;
     

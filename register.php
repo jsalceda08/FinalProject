@@ -5,7 +5,8 @@
  * Assignment 4 
  */ 
  
-require 'server.php'; 
+    include_once('connect.php'); 
+    include_once('server.php'); 
  
  
 ?> 

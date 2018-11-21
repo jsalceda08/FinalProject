@@ -6,28 +6,47 @@
  * Assignment 4
  */
 
-    //require 'authenticate.php';
+    $username = "";
+	$roles = "";
+    $email = "";
+	$id = 0;
+	$update = false;
 
+    //require 'authenticate.php';
+    include('server.php');
     if(isset($_GET['id']) && is_numeric($_GET['id'])) {
       require 'connect.php';
-
+      //include_once ('server.php');
       $id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
 
-      $query = "SELECT * FROM project WHERE id = :id;";
+      $query = "SELECT * FROM users WHERE id = :id;";
       $statement = $db->prepare($query); 
       $bind_values = ['id' => $id];
       $statement->execute($bind_values); 
       
       if($statement->rowCount() <= 0) {
-        header("Location: Questions.php");
+        header("Location: admin_index.php");
         die();
       }
       $row = $statement->fetch();
     }
     else {
-      header("Location: Questions.php");
+      header("Location: admin_index.php");
       die();
-    }    
+    }  
+
+	if (isset($_GET['edit'])) {
+		$id = $_GET['edit'];
+		$update = true;
+		$record = mysqli_query($db, "SELECT * FROM users WHERE id=$id");
+
+		if (count($record) == 1 ) {
+			$n = mysqli_fetch_array($record);
+			$username = $n['username'];
+			$roles = $n['roles'];
+            $email = $n['email'];
+		}
+	}
 ?>
 <!DOCTYPE HTML>
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -58,20 +77,28 @@
         <div id="leftPanel">             
         	<h2>Question</h2>             
         <div id="all_blogs">
-          <form action="process_post.php" method="post">
+          <form action="edit_user.php" method="post">
             <fieldset>
-              <legend>Edit Blog Post</legend>
+              <legend>Edit User</legend>
               <p>
-                <label for="title">Title</label>
-                <input name="title" id="title" value='<?= $row["title"] ?>'>
+                <label for="username">Username</label>
+                <input name="username" id="username" value='<?= $row["username"] ?>'>
               </p>
               <p>
-                <label for="content">Content</label>
-                <textarea name="content" id="content"><?= $row["content"] ?></textarea>
+                <label for="roles">Roles</label>
+                <input name="roles" id="roles" value='<?= $row["roles"] ?>'>
+              </p>
+              <p>
+                <label for="email">Email</label>
+                <input name="email" id="email" value='<?= $row["email"] ?>'>
               </p>
               <p>
                 <input type="hidden" name="id" value='<?= $row["id"] ?>'>
-                <input type="submit" name="command" value="Update">
+                <?php if ($update == true): ?>
+                    <button class="btn" type="submit" name="update" style="background: #556B2F;" >update</button>
+                <?php else: ?>
+                    <button class="btn" type="submit" name="update" >Update</button>
+                <?php endif ?>
               </p>
             </fieldset>
           </form>

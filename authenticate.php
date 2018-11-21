@@ -7,7 +7,7 @@
  * November 2, 2018
  */
 
- 	define('ADMIN_LOGIN','janpaulo');
+ 	define('ADMIN_LOGIN','janpaulo08');
 
   	define('ADMIN_PASSWORD','Janpaulo08');
 
