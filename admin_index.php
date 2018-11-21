@@ -61,7 +61,11 @@ if (!isAdmin()) {
 				</h3>
 			</div>
 		<?php endif ?>
-       	    <div>                   
+                <ul id="menu">
+                    <li><a href="admin_index.php">Users</a></li>
+                    <li><a href="admin_questions.php">Questions</a></li>
+                </ul>              
+                <div>                   
                 <small>
 				    <?php  if (isset($_SESSION['username'])) : ?>
                     <p>Welcome <strong><?php echo $_SESSION['username']; ?>				       <i  style="color: #888;">(<?php echo ucfirst($_SESSION['users']['roles']); ?>)</i> <br></strong></p>
@@ -99,7 +103,11 @@ if (!isAdmin()) {
                 <li><a href="diseases.html" title="Diseases">Diseases</a></li>            
                                     
             </ul>           
-            <a href="#"><img src="images/banner.jpg" alt="Family Doctor" title="Family Doctor" width="143" height="105" /></a>       </div>               
+            <?php if(isset($_SESSION['username'])): ?>
+            <?php else:?>           
+            <a href="register.php"><img src="images/banner.jpg" alt="Register Now" title="Family Doctor" width="143" height="105" /></a> 
+            <?php endif ?>         
+            </div>               
     <br class="spacer" /></div>           
 <!-- BODY ENDS -->           
 <!-- FOOTER STARTS -->           

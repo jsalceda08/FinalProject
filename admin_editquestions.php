@@ -19,13 +19,13 @@
       $statement->execute($bind_values); 
       
       if($statement->rowCount() <= 0) {
-        header("Location: Questions.php");
+        header("Location: admin_questions.php");
         die();
       }
       $row = $statement->fetch();
     }
     else {
-      header("Location: Questions.php");
+      header("Location: admin_questions.php");
       die();
     }    
 ?>
@@ -50,7 +50,7 @@
             <li><a href="logout.php">Logout</a></li>
             <?php else: ?>       
             <li><a href="login.php">Login</a></li>
-            <?php endif ?>                           
+            <?php endif ?>                            
             <li><a href="Questions.php" title="Questions">Questions</a></li>
             <li><a href="" title="ABOUT US">ABOUT US</a></li>           
             <li><a href="index.php">Home</a></li>            
@@ -63,7 +63,7 @@
         <div id="leftPanel">             
         	<h2>Question</h2>             
         <div id="all_blogs">
-          <form action="process_post.php" method="post">
+          <form action="admin_process.php" method="post">
             <fieldset>
               <legend>Edit Blog Post</legend>
               <p>
@@ -75,8 +75,12 @@
                 <textarea name="content" id="content"><?= $row["content"] ?></textarea>
               </p>
               <p>
+                  <label for="image">Image</label>
+                  
+              </p>
+              <p>
                 <input type="hidden" name="id" value='<?= $row["id"] ?>'>
-                <input type="submit" name="command" value="Update">
+                <input type="submit" name="command2" value="Update">
               </p>
             </fieldset>
           </form>
@@ -93,11 +97,7 @@
                <li><a href="diseases.html" title="Diseases">Diseases</a></li>            
                                     
             </ul>           
-            <?php if(isset($_SESSION['username'])): ?>
-            <?php else:?>           
-            <a href="register.php"><img src="images/banner.jpg" alt="Register Now" title="Family Doctor" width="143" height="105" /></a> 
-            <?php endif ?>         
-            </div>               
+            <a href="#"><img src="images/banner.jpg" alt="Register Now" title="Family Doctor" width="143" height="105" /></a>       </div>               
     <br class="spacer" />
     </div>           
 <!-- BODY ENDS -->           

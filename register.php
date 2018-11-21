@@ -77,7 +77,11 @@
                 <li><a href="diseases.html" title="Diseases">Diseases</a></li>             
                                      
             </ul>            
-            <a href="#"><img src="images/banner.jpg" alt="Family Doctor" title="Family Doctor" width="143" height="105" /></a>       </div>                
+            <?php if(isset($_SESSION['username'])): ?>
+            <?php else:?>           
+            <a href="register.php"><img src="images/banner.jpg" alt="Register Now" title="Family Doctor" width="143" height="105" /></a> 
+            <?php endif ?>         
+            </div>                
     <br class="spacer" /></div>            
 <!-- BODY ENDS -->            
 <!-- FOOTER STARTS -->            

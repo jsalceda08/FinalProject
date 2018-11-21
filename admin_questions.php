@@ -1,11 +1,26 @@
 <?php 
-include_once('server.php'); 
+include ('server.php');
 include_once('connect.php');
+
+if (!isAdmin()) {
+	$_SESSION['msg'] = "You must log in first";
+	header('location: login.php');
+}   
+
+    $query = "SELECT * FROM project ORDER BY id DESC LIMIT 50;"; 
+    $statement = $db->prepare($query);  
+    $statement->execute(); 
+
+//if (isset($_GET['logout'])) {
+//	session_destroy();
+//	unset($_SESSION['user']);
+//	header("location: ../login.php");
+//}
 ?>
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Registration system PHP and MySQL - Create user</title>
+	<title>Home</title>
 	<link rel="stylesheet" type="text/css" href="style.css">
 	<style>
 	</style>
@@ -27,45 +42,57 @@ include_once('connect.php');
             <li><a href="Questions.php?sort=title" title="Questions">Questions</a></li>
             <li><a href="" title="ABOUT US">ABOUT US</a></li>           
             <li><a href="index.php">Home</a></li>       
-      </ul>     
-        <?php  if (isset($_SESSION['username'])) : ?>
-    	<p>Welcome <strong><?php echo $_SESSION['username']; ?></strong></p>
-    	<?php endif ?>        
-  </div>             
-<!-- HEADER ENDS --> 
-	<div id="body">             
+      </ul>       
+  </div>
+  
+  	<div id="body">             
     <!-- LEFT PANEL -->             
-    	<div id="leftPanel">             
-<form method="post" action="">
-		<div class="input-group">
-		    <?php include('errors.php'); ?> 
-			<label>Username</label>
-			<input type="text" name="username" value="<?php echo $username; ?>">
-		</div>
-		<div class="input-group">
-			<label>Email</label>
-			<input type="email" name="email" value="<?php echo $email; ?>">
-		</div>
-		<div class="input-group">
-			<label>User type</label>
-			<select name="roles" id="roles" >
-				<option value=""></option>
-				<option value="admin">Admin</option>
-				<option value="user">User</option>
-			</select>
-		</div>
-		<div class="input-group">
-			<label>Password</label>
-			<input type="password" name="password_1">
-		</div>
-		<div class="input-group">
-			<label>Confirm password</label>
-			<input type="password" name="password_2">
-		</div>
-		<div class="input-group">
-			<button type="submit" class="btn" name="reg_user">Create user</button>
-		</div>
-	</form>            
+    	<div id="leftPanel">
+    			<!-- notification message -->
+    			
+
+		<?php if (isset($_SESSION['success'])) : ?>
+			<div class="error success" >
+				<h3>
+					<?php 
+						echo $_SESSION['success']; 
+						unset($_SESSION['success']);
+					?>
+				</h3>
+			</div>
+		<?php endif ?>
+                <ul id="menu">
+                    <li><a href="admin_index.php">Users</a></li>
+                    <li><a href="admin_questions.php">Questions</a></li>
+                </ul>              
+                <div>                   
+                <small>
+				    <?php  if (isset($_SESSION['username'])) : ?>
+                    <p>Welcome <strong><?php echo $_SESSION['username']; ?>				       <i  style="color: #888;">(<?php echo ucfirst($_SESSION['users']['roles']); ?>)</i> <br></strong></p>
+                    <?php endif ?>
+				</small>
+				<table>
+				    <thead>
+				        <tr>
+				            <th>Title</th>
+				            <th>Content</th>
+				            <th>Image</th>
+				            <th>Date</th>
+				            <th>Actions</th>
+				        </tr>
+				    </thead>
+				    <?php while ($row = $statement->fetch()): ?>
+                    <tr>
+                        <td><?= $row['title'] ?></td>
+                        <td><?= $row['content'] ?></td>
+                        <td><?= $row['image'] ?></td>
+                        <td><?= $row['date'] ?></td>
+                        <td><a href="admin_editquestions.php?id=<?= $row['id'] ?>">edit</a></td>
+                        <td><a href="server.php?del=<?php echo $row['id']; ?>" class="del_btn">Delete</a></td>
+                    </tr>
+                <?php endwhile ?>
+				</table>
+			</div>                      
     </div>             
     <!-- LEFT PANEL -->             
    	  <div id="rightPanel">             
@@ -80,7 +107,7 @@ include_once('connect.php');
             <?php if(isset($_SESSION['username'])): ?>
             <?php else:?>           
             <a href="register.php"><img src="images/banner.jpg" alt="Register Now" title="Family Doctor" width="143" height="105" /></a> 
-            <?php endif ?>         
+            <?php endif ?>  
             </div>               
     <br class="spacer" /></div>           
 <!-- BODY ENDS -->           
@@ -93,6 +120,6 @@ include_once('connect.php');
     </ul>           
         <p>Copyright <br class="spacer" />           
 Designed by Jan Salceda</p>           
-</div>  	
+</div> 
 </body>
 </html>

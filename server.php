@@ -77,8 +77,15 @@ if (isset($_POST['update'])) {
 if (isset($_GET['del'])) {
 	$id = $_GET['del'];
 	mysqli_query($db, "DELETE FROM users WHERE id=$id");
-	$_SESSION['message'] = "Address deleted!"; 
+	$_SESSION['message'] = "User deleted!"; 
 	header('location: admin_index.php');
+}
+
+if (isset($_GET['del'])) {
+	$id = $_GET['del'];
+	mysqli_query($db, "DELETE FROM project WHERE id=$id");
+	$_SESSION['message'] = "Post deleted!"; 
+	header('location: admin_questions.php');
 }
 
 // LOGIN USER
