@@ -8,7 +8,7 @@
 //    include_once('connect.php'); 
 //    include_once('server.php'); 
     //require 'authenticate.php'; 
- 
+    
     $query = "SELECT * FROM project ORDER BY id DESC LIMIT 50;"; 
     $statement = $db->prepare($query);  
     $statement->execute(); 
@@ -69,7 +69,8 @@
         <?php while ($row = $statement->fetch()): ?> 
  
             <div class="question_post"> 
-                <h3><a href="show.php?id=<?= $row['id'] ?>"><?= $row['title'] ?></a></h3> 
+                <h3><a href="show.php?id=<?= $row['id'] ?>"><?= $row['title'] ?></a></h3>
+                <img src="<?= 'web/'.$row['image']?>." alt="">
                 <div class="question_content"> 
                     <?= truncateContent($row['content'], $row['id']) ?> 
                 </div> 
@@ -87,7 +88,7 @@
     </div>  
     <?php if(isset($_SESSION['username'])): ?>
     <div id="all_questions"> 
-      <form action="process_post.php" method="post"> 
+      <form action="process_post.php" method="post" enctype="multipart/form-data"> 
         <fieldset> 
           <legend>Ask your question here!</legend> 
           <p> 
