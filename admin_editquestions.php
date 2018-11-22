@@ -65,18 +65,19 @@
         <div id="all_blogs">
           <form action="admin_process.php" method="post">
             <fieldset>
-              <legend>Edit Blog Post</legend>
+              <legend>Edit Questions</legend>
               <p>
                 <label for="title">Title</label>
                 <input name="title" id="title" value='<?= $row["title"] ?>'>
               </p>
               <p>
-                <label for="content">Content</label>
-                <textarea name="content" id="content"><?= $row["content"] ?></textarea>
+                  <label for="image">Image</label>
+                  <img src="<?= 'web/'.$row['image']?>." alt="">
+                  <a href="admin_removeimage.php?del=<?php echo $row['id']; ?>" class="del_btn">Delete</a>
               </p>
               <p>
-                  <label for="image">Image</label>
-                  
+                <label for="content">Content</label>
+                <textarea name="content" id="content"><?= $row["content"] ?></textarea>
               </p>
               <p>
                 <input type="hidden" name="id" value='<?= $row["id"] ?>'>

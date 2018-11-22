@@ -5,6 +5,31 @@
  * November 5, 2018 
  */ 
  
+    include "lib\ImageResize.php";
+    use \Gumlet\ImageResize;
+    
+    function file_upload_path($original_filename, $upload_subfolder_name = 'uploads') 
+    {
+       $current_folder = dirname(__FILE__);
+       $path_segments = [$current_folder, $upload_subfolder_name, basename($original_filename)];
+       return join(DIRECTORY_SEPARATOR, $path_segments);
+    }
+
+    function file_is_an_image($temporary_path, $new_path) 
+    {
+            $allowed_mime_types      = ['image/gif', 'image/jpeg', 'image/png'];
+
+            $allowed_file_extensions = ['gif', 'jpg', 'jpeg', 'png'];
+
+            $actual_file_extension   = pathinfo($new_path, PATHINFO_EXTENSION);
+            $actual_mime_type        = getimagesize($temporary_path)['mime'];
+
+            $file_extension_is_valid = in_array($actual_file_extension, $allowed_file_extensions);
+            $mime_type_is_valid      = in_array($actual_mime_type, $allowed_mime_types);
+
+            return $file_extension_is_valid && $mime_type_is_valid;
+    }
+
 	function validate_title_and_content() { 
 		$title = filter_input(INPUT_POST, 'title', FILTER_SANITIZE_SPECIAL_CHARS); 
 		$content = filter_input(INPUT_POST, 'content', FILTER_SANITIZE_SPECIAL_CHARS); 
@@ -24,17 +49,17 @@
 				$title = filter_input(INPUT_POST, 'title', FILTER_SANITIZE_SPECIAL_CHARS); 
 				$content = filter_input(INPUT_POST, 'content', FILTER_SANITIZE_SPECIAL_CHARS);
                 $image = $_FILES['image']['name'];
-                $image_text = mysqli_real_escape_string($db, $_POST['image_text']);
-                $target = "web/".basename($image);
+                $temporary_image_path = $_FILES['image']['tmp_name'];
                 
+                move_uploaded_file($temporary_image_path, "resize/new_$image.png");
                 
-				$query = "INSERT INTO project (title, content, image, image_text) VALUES (:title, :content, '$image', '$image_text')"; 
+                $img = new ImageResize("resize/new_$image.png");
+                $img->resizeToHeight(200);
+                $img->save("resize/new_$image.png");
                 
-                if (move_uploaded_file($_FILES['image']['tmp_name'], $target)) {
-  		            $error = "Image uploaded successfully";
-  	            }else{
-  		            $error = "Failed to upload image";
-                }
+				$query = "INSERT INTO project (title, content, image, image_text) VALUES (:title, :content, 'new_$image.png', '$image_text')"; 
+                
+
                 
 				$statement = $db->prepare($query);  
 				$bind_values = ['title' => $title, 'content' => $content]; 
@@ -48,7 +73,8 @@
 		  	else { 
 		  		if($_POST["command"] == "Update") { 
 					$title = filter_input(INPUT_POST, 'title', FILTER_SANITIZE_SPECIAL_CHARS); 
-					$content = filter_input(INPUT_POST, 'content', FILTER_SANITIZE_SPECIAL_CHARS); 
+					$content = filter_input(INPUT_POST, 'content', FILTER_SANITIZE_SPECIAL_CHARS);
+                    
 			  		 
 					$query = "UPDATE project SET title = :title, content = :content WHERE id = :id;"; 
 					$statement = $db->prepare($query); 
@@ -71,7 +97,8 @@
 	} 
 	else { 
 		$error = "POST['command'] missing!"; 
-	} 
+	}
+    
  
 ?> 
  

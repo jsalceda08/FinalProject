@@ -85,7 +85,7 @@ if (!isAdmin()) {
                     <tr>
                         <td><?= $row['title'] ?></td>
                         <td><?= $row['content'] ?></td>
-                        <td><?= $row['image'] ?></td>
+                        <td><img src="<?= 'web/'.$row['image']?>." alt=""></td>
                         <td><?= $row['date'] ?></td>
                         <td><a href="admin_editquestions.php?id=<?= $row['id'] ?>">edit</a></td>
                         <td><a href="server.php?del=<?php echo $row['id']; ?>" class="del_btn">Delete</a></td>

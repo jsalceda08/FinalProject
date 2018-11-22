@@ -68,7 +68,11 @@
               <legend>Edit Blog Post</legend>
               <p>
                 <label for="title">Title</label>
-                <input name="title" id="title" value='<?= $row["title"] ?>'>
+               <textarea name="title" id="title"><?= $row["title"] ?></textarea>
+              </p>
+              <p>
+                  <label for="image">Image</label>
+                  <img src="<?= 'web/'.$row['image']?>." alt="">
               </p>
               <p>
                 <label for="content">Content</label>

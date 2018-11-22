@@ -70,7 +70,7 @@
  
             <div class="question_post"> 
                 <h3><a href="show.php?id=<?= $row['id'] ?>"><?= $row['title'] ?></a></h3>
-                <img src="<?= 'web/'.$row['image']?>." alt="">
+                <img src="<?= 'resize/'.$row['image']?>." alt="" id="image">
                 <div class="question_content"> 
                     <?= truncateContent($row['content'], $row['id']) ?> 
                 </div> 
