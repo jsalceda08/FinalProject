@@ -72,15 +72,15 @@
               </p>
               <p>
                   <label for="image">Image</label>
-                  <img src="<?= 'web/'.$row['image']?>." alt="">
-                  <a href="admin_removeimage.php?del=<?php echo $row['id']; ?>" class="del_btn">Delete</a>
+                  <img src="<?= 'resize/'.$row['image']?>." alt="">
+                  <input type="submit" name="deleteImage" value="Delete Image" onclick="return confirm('Are you sure you wish to delete the image?')" />
               </p>
               <p>
                 <label for="content">Content</label>
                 <textarea name="content" id="content"><?= $row["content"] ?></textarea>
               </p>
               <p>
-                <input type="hidden" name="id" value='<?= $row["id"] ?>'>
+                <input type="hidden" name="id" value='<?= $row["id"] ?>'/>
                 <input type="submit" name="command2" value="Update">
               </p>
             </fieldset>

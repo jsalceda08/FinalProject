@@ -5,15 +5,19 @@
  * November 5, 2018 
  */ 
  
+    //global $db;
+
 	function validate_title_and_content() { 
 		$title = filter_input(INPUT_POST, 'title', FILTER_SANITIZE_SPECIAL_CHARS); 
 		$content = filter_input(INPUT_POST, 'content', FILTER_SANITIZE_SPECIAL_CHARS); 
 		return strlen($title) > 0 && strlen($content) > 0; 
 	} 
+
+require 'connect.php'; 
  
 	if(isset($_POST["command2"])) { 
  
-  		require 'connect.php'; 
+  		
 		$id = filter_input(INPUT_POST,"id", FILTER_VALIDATE_INT); 
  
 		if(($_POST["command2"] == "Create" || $_POST["command2"] == "Update") 
@@ -62,6 +66,40 @@
 		$error = "POST['command2'] missing!"; 
 	} 
  
+    if(isset($_POST['deleteImage']))
+    {
+        $id = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_NUMBER_INT);
+
+        $query = "SELECT * FROM project WHERE id = {$id}";
+        $tables = $db->prepare($query);
+        $tables -> execute();
+        $column = $tables->fetchAll(); 
+        
+//        $query = "SELECT * FROM project WHERE id = {$id}";
+//        $statement = $db->prepare($query); 
+//        $bind_values = ['id' => $id];
+//        $statement->execute($bind_values);
+//        $column = $statement->fetchAll();
+
+        foreach($column as $columnEach)
+        {
+            //$image = $_FILES['image']['name'];
+            $myFile = "resize/" . $columnEach['image'];
+            echo $myFile;
+            unlink($myFile);
+        }
+        $image_filename = "none";
+
+        $query = "UPDATE project SET image = :image WHERE id = :id";
+        $tables = $db->prepare($query);
+        $tables ->bindValue(':id', $id, PDO::PARAM_INT);
+        $tables ->bindValue(':image', $image_filename);
+
+        $tables ->execute();
+
+        header("Location: admin_questions.php");
+    }
+
 ?> 
  
 <!DOCTYPE html> 

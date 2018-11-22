@@ -98,8 +98,8 @@
 	else { 
 		$error = "POST['command'] missing!"; 
 	}
+
     
- 
 ?> 
  
 <!DOCTYPE html> 
