@@ -9,11 +9,30 @@
 //    include_once('server.php'); 
     //require 'authenticate.php'; 
     
-    $query = "SELECT * FROM project ORDER BY id DESC LIMIT 50;"; 
-    $statement = $db->prepare($query);  
-    $statement->execute(); 
- 
- 
+
+
+    if($_GET['sort'] == null)
+    {
+        $query = "SELECT * FROM project ORDER BY id DESC LIMIT 50;"; 
+        $statement = $db->prepare($query);  
+        $statement->execute();
+//        $column = $tables->fetchAll();
+    }else{
+        if($_GET['sort'] == 'title')
+        {
+            $query = "SELECT * FROM project ORDER BY title ASC";
+            $tables = $db->prepare($query);
+            $tables->execute();
+            $column = $tables->fetchAll();
+        }else if($_GET['sort'] == 'date')
+        {
+            $query = "SELECT * FROM project ORDER BY date ASC";
+            $tables = $db->prepare($query);
+            $tables->execute();
+            $column = $tables->fetchAll();
+        }
+    }
+
     function truncateContent($question_content, $id) { 
        
       if(strlen($question_content) <= 200){ 
@@ -30,6 +49,12 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
 <title>HEALTH PORTAL</title> 
 <link href="style.css" rel="stylesheet" type="text/css" /> 
+<script src='https://devpreview.tiny.cloud/demo/tinymce.min.js'></script>
+<script>
+  tinymce.init({
+    selector: '#mytextarea'
+  });
+</script>
 </head> 
  
 <body> 
@@ -56,10 +81,11 @@
 	<div id="body">              
     <!-- LEFT PANEL -->              
     	<div id="leftPanel">              
-        	<h2>Questions</h2>              
-          <ul id="menu"> 
-        <li><a href="index.php">Home</a></li> 
-    </ul> 
+        	<h2>Questions</h2>
+          <ul>
+              <li><a href="questions.php?sort=title">Title</a></li>
+              <li><a href="questions.php?sort=date">Date</a></li>
+          </ul>              
     <div id="all_questions"> 
  
         <?php if(!isset($statement) || $statement->rowCount() <= 0): ?> 
@@ -72,7 +98,7 @@
                 <h3><a href="show.php?id=<?= $row['id'] ?>"><?= $row['title'] ?></a></h3>
                 <img src="<?= 'resize/'.$row['image']?>." alt="" id="image">
                 <div class="question_content"> 
-                    <?= truncateContent($row['content'], $row['id']) ?> 
+                    <?= html_entity_decode($row['content'], $row['id']) ?> 
                 </div> 
                 <p>                  
                   <small> 
@@ -91,14 +117,12 @@
       <form action="process_post.php" method="post" enctype="multipart/form-data"> 
         <fieldset> 
           <legend>Ask your question here!</legend> 
-          <p> 
+           <p>
             <label for="title">Title</label> 
             <input name="title" id="title"> 
-          </p> 
-          <p> 
+          </p>  
             <label for="content">Content</label> 
-            <textarea name="content" id="content"></textarea> 
-          </p>
+            <textarea name="content" id="mytextarea"></textarea> 
           <input type="file" name="image"> 
           <p> 
             <input type="submit" name="command" value="Create"> 

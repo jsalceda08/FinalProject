@@ -73,13 +73,14 @@
                 <div class="question_post">
                     <h2><?= $row['title'] ?></h2>
                     <p>
+                       <img src="<?= 'resize/'.$row['image']?>." alt="" id="image">
+                    </p>
+                        <div class="question_content">
+                  <?= $row['content'] ?>
                       <small>
                         <?= date("M d, Y, h:i A", strtotime($row['date'])) ?> -
                         <a href="edit.php?id=<?= $row['id'] ?>">edit</a>
-                      </small>
-                    </p>
-                <div class="question_content">
-                  <?= $row['content'] ?>
+                      </small>                 
                 </div>
               </div>
           </div> 
