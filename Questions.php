@@ -21,15 +21,15 @@
         if($_GET['sort'] == 'title')
         {
             $query = "SELECT * FROM project ORDER BY title ASC";
-            $tables = $db->prepare($query);
-            $tables->execute();
-            $column = $tables->fetchAll();
+            $statement = $db->prepare($query);
+            $statement->execute();
+            //$column = $tables->fetchAll();
         }else if($_GET['sort'] == 'date')
         {
             $query = "SELECT * FROM project ORDER BY date ASC";
-            $tables = $db->prepare($query);
-            $tables->execute();
-            $column = $tables->fetchAll();
+            $statement = $db->prepare($query);
+            $statement->execute();
+            //$column = $tables->fetchAll();
         }
     }
 
@@ -83,8 +83,8 @@
     	<div id="leftPanel">              
         	<h2>Questions</h2>
           <ul>
-              <li><a href="questions.php?sort=title">Title</a></li>
-              <li><a href="questions.php?sort=date">Date</a></li>
+              <li><a href="Questions.php?sort=title">Title</a></li>
+              <li><a href="Questions.php?sort=date">Date</a></li>
           </ul>              
     <div id="all_questions"> 
  

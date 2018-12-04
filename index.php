@@ -45,7 +45,8 @@
             <input type="text" name="search" />
             <input type="submit" value="Search">
         </form>
-        </div> 
+        </div>
+<!--        Search prototype -->
         <?php
         if(isset($_GET))
         {
