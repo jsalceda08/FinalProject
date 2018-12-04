@@ -1,12 +1,10 @@
 <?php   
+/*
+ * Jan Salceda 0313887
+ * November 15, 2018
+ */
     include('connect.php'); 
     include('server.php'); 
-  
-//if($user->is_logged_in()){  
-//    header('Location: index.php');  
-//}  
-//      
-  
 ?>  
 <!DOCTYPE HTML>  
 <html>  

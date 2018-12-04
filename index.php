@@ -2,8 +2,7 @@
 <?php
 /*
  * Jan Salceda 0313887
- * October 2, 2018
- * Assignment 4
+ * November 29, 2018
  */
 
     include_once('connect.php'); 

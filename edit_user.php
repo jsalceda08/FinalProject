@@ -12,11 +12,9 @@
 	$id = 0;
 	$update = false;
 
-    //require 'authenticate.php';
     include('server.php');
     if(isset($_GET['id']) && is_numeric($_GET['id'])) {
       require 'connect.php';
-      //include_once ('server.php');
       $id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
 
       $query = "SELECT * FROM users WHERE id = :id;";

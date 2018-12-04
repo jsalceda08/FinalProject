@@ -1,4 +1,9 @@
 <?php
+/*
+ * Jan Salceda 0313887
+ * November 15, 2018
+ */
+
 if (!defined('PASSWORD_DEFAULT')) {
         define('PASSWORD_BCRYPT', 1);
         define('PASSWORD_DEFAULT', PASSWORD_BCRYPT);

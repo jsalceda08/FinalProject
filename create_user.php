@@ -1,4 +1,8 @@
-<?php 
+<?php
+/*
+ * Jan Salceda 0313887
+ * November 15, 2018
+ */
 include_once('server.php'); 
 include_once('connect.php');
 ?>

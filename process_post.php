@@ -2,7 +2,7 @@
 <?php 
 /* 
  * Jan Salceda 0313887 
- * November 5, 2018 
+ * November 15, 2018 
  */ 
  
     include "lib\ImageResize.php";

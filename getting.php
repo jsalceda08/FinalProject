@@ -1,4 +1,8 @@
 <?php
+/*
+ * Jan Salceda 0313887
+ * November 15, 2018
+ */
     //session_start();
     $captcha = $_POST['captcha'];
     $check = false;

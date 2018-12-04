@@ -6,8 +6,6 @@
  * Assignment 4
  */
 
-    //require 'authenticate.php';
-
     if(isset($_GET['id']) && is_numeric($_GET['id'])) {
       require 'connect.php';
 
