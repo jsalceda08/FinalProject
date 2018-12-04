@@ -1,5 +1,9 @@
 <?php 
- 
+/*
+ * Jan Salceda 0313887
+ * November 15, 2018
+ */
+
 include('class.password.php'); 
  
 class User extends Password{ 

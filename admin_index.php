@@ -1,4 +1,9 @@
-<?php 
+<?php
+/*
+ * Jan Salceda 0313887
+ * December 3, 2018
+ */
+
 include ('server.php');
 include_once('connect.php');
 
@@ -10,12 +15,6 @@ include_once('connect.php');
     $query = "SELECT * FROM users ORDER BY id DESC LIMIT 50;"; 
     $statement = $db->prepare($query);  
     $statement->execute(); 
-
-//if (isset($_GET['logout'])) {
-//	session_destroy();
-//	unset($_SESSION['user']);
-//	header("location: ../login.php");
-//}
 ?>
 <!DOCTYPE html>
 <html>

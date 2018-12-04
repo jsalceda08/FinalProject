@@ -4,8 +4,6 @@
  * Jan Salceda 0313887 
  * November 5, 2018 
  */ 
- 
-    //global $db;
 
 	function validate_title_and_content() { 
 		$title = filter_input(INPUT_POST, 'title', FILTER_SANITIZE_SPECIAL_CHARS); 
@@ -74,12 +72,6 @@ require 'connect.php';
         $tables = $db->prepare($query);
         $tables -> execute();
         $column = $tables->fetchAll(); 
-        
-//        $query = "SELECT * FROM project WHERE id = {$id}";
-//        $statement = $db->prepare($query); 
-//        $bind_values = ['id' => $id];
-//        $statement->execute($bind_values);
-//        $column = $statement->fetchAll();
 
         foreach($column as $columnEach)
         {

@@ -16,20 +16,17 @@
         $query = "SELECT * FROM project ORDER BY id DESC LIMIT 50;"; 
         $statement = $db->prepare($query);  
         $statement->execute();
-//        $column = $tables->fetchAll();
     }else{
         if($_GET['sort'] == 'title')
         {
             $query = "SELECT * FROM project ORDER BY title ASC";
             $statement = $db->prepare($query);
             $statement->execute();
-            //$column = $tables->fetchAll();
         }else if($_GET['sort'] == 'date')
         {
             $query = "SELECT * FROM project ORDER BY date ASC";
             $statement = $db->prepare($query);
             $statement->execute();
-            //$column = $tables->fetchAll();
         }
     }
 
