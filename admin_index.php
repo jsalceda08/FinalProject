@@ -38,7 +38,7 @@ include_once('connect.php');
             <?php else: ?>       
             <li><a href="login.php">Login</a></li>
             <?php endif ?>           
-            <li><a href="Questions.php?sort=title" title="Questions">Questions</a></li>
+            <li><a href="Questions.php" title="Questions">Questions</a></li>
             <li><a href="" title="ABOUT US">ABOUT US</a></li>           
             <li><a href="index.php">Home</a></li>       
       </ul>       

@@ -1,9 +1,8 @@
 <?php 
 /* 
  * Jan Salceda 0313887 
- * October 2, 2018 
- * Assignment 4 
- */ 
+ * November 22, 2018 
+*/ 
  
     include_once('connect.php'); 
     include_once('server.php'); 

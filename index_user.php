@@ -29,7 +29,7 @@
         </div>           
     	<ul>     
         <li><a href="logout.php">Logout</a></li>           
-        <li><a href="Questions.php?sort=title" title="Questions">Questions</a></li>
+        <li><a href="Questions.php" title="Questions">Questions</a></li>
         <li><a href="" title="ABOUT US">ABOUT US</a></li>           
         <li><a href="index_user.php">Home</a></li>       
       </ul>

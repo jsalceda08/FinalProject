@@ -2,16 +2,11 @@
 <?php 
 /* 
  * Jan Salceda 0313887 
- * November 2, 2018 
+ * November 18, 2018 
  */ 
     require_once 'connect.php'; 
-//    include_once('connect.php'); 
-//    include_once('server.php'); 
-    //require 'authenticate.php'; 
-    
 
-
-    if($_GET['sort'] == null)
+    if(!isset($_GET['sort']))
     {
         $query = "SELECT * FROM project ORDER BY id DESC LIMIT 50;"; 
         $statement = $db->prepare($query);  

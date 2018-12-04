@@ -1,4 +1,8 @@
-<?php 
+<?php
+/*
+ * Jan Salceda 0313887
+ * November 29, 2018
+ */
 //session_start(); 
  
 // initializing variables 

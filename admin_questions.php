@@ -1,4 +1,8 @@
-<?php 
+<?php
+/*
+ * Jan Salceda 0313887
+ * November 15, 2018
+ */
 include ('server.php');
 include_once('connect.php');
 
@@ -10,12 +14,6 @@ include_once('connect.php');
     $query = "SELECT * FROM project ORDER BY id DESC LIMIT 50;"; 
     $statement = $db->prepare($query);  
     $statement->execute(); 
-
-//if (isset($_GET['logout'])) {
-//	session_destroy();
-//	unset($_SESSION['user']);
-//	header("location: ../login.php");
-//}
 ?>
 <!DOCTYPE html>
 <html>
@@ -39,7 +37,7 @@ include_once('connect.php');
             <?php else: ?>       
             <li><a href="login.php">Login</a></li>
             <?php endif ?>           
-            <li><a href="Questions.php?sort=title" title="Questions">Questions</a></li>
+            <li><a href="Questions.php" title="Questions">Questions</a></li>
             <li><a href="" title="ABOUT US">ABOUT US</a></li>           
             <li><a href="index.php">Home</a></li>       
       </ul>       
@@ -48,7 +46,7 @@ include_once('connect.php');
   	<div id="body">             
     <!-- LEFT PANEL -->             
     	<div id="leftPanel">
-    			<!-- notification message -->
+    <!-- notification message -->
     			
 
 		<?php if (isset($_SESSION['success'])) : ?>

@@ -1,17 +1,11 @@
-<?php 
-  //session_start();
+<?php
+/*
+ * Jan Salceda 0313887
+ * November 15, 2018
+ */
     include_once('connect.php'); 
     include_once('server.php'); 
-//
-//  if (!isset($_SESSION['username'])) {
-//  	$_SESSION['msg'] = "You must log in first";
-//  	header('location: login.php');
-//  }
-//  if (isset($_GET['logout'])) {
-//  	session_destroy();
-//  	unset($_SESSION['username']);
-//  	header("location: login.php");
-//  }
+
 ?>
 <!DOCTYPE html>
 <html>
