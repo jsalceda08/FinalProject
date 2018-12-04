@@ -35,6 +35,12 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>HEALTH PORTAL</title>
 <link href="style.css" rel="stylesheet" type="text/css" />
+<script src='https://devpreview.tiny.cloud/demo/tinymce.min.js'></script>
+<script>
+  tinymce.init({
+    selector: '#mytextarea'
+  });
+</script>
 </head>
 
 <body>
@@ -77,7 +83,7 @@
               </p>
               <p>
                 <label for="content">Content</label>
-                <textarea name="content" id="content"><?= $row["content"] ?></textarea>
+                <textarea name="content" id="mytextarea"><?= $row["content"] ?></textarea>
               </p>
               <p>
                 <input type="hidden" name="id" value='<?= $row["id"] ?>'/>

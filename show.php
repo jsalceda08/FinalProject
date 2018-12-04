@@ -4,11 +4,21 @@
  * November 5, 2018
  */
 
-    if(isset($_GET['id']) && is_numeric($_GET['id'])) {
       require 'connect.php';
 
-      $id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
+    if(isset($_GET["id"]))
+    {
+        $id = $_GET["id"];
+        
+        $query = "SELECT * FROM comments WHERE project_id = {$id}";
+        $statement = $db->prepare($query);
+        $bind_values = ['project_id' => $id];
+        $statement->execute($bind_values);
+    }
 
+    if(isset($_GET['id']) && is_numeric($_GET['id'])) {
+
+      $id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
       $query = "SELECT * FROM project WHERE id = :id;";
       $statement = $db->prepare($query); 
       $bind_values = ['id' => $id];
@@ -76,7 +86,7 @@
                        <img src="<?= 'resize/'.$row['image']?>." alt="" id="image">
                     </p>
                         <div class="question_content">
-                  <?= $row['content'] ?>
+                  <?= html_entity_decode($row['content']) ?>
                       <small>
                         <?= date("M d, Y, h:i A", strtotime($row['date'])) ?> -
                         <a href="edit.php?id=<?= $row['id'] ?>">edit</a>
@@ -130,7 +140,10 @@
                <li><a href="diseases.html" title="Diseases">Diseases</a></li>            
                                     
             </ul>           
-            <a href="#"><img src="images/banner.jpg" alt="Family Doctor" title="Family Doctor" width="143" height="105" /></a>       </div>               
+            <?php if(isset($_SESSION['username'])): ?>
+            <?php else:?>           
+            <a href="register.php"><img src="images/banner.jpg" alt="Register Now" title="Family Doctor" width="143" height="105" /></a> 
+            <?php endif ?>      </div>               
     <br class="spacer" /></div>           
 <!-- BODY ENDS -->           
 <!-- FOOTER STARTS -->           

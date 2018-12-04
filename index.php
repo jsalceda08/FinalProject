@@ -7,7 +7,8 @@
  */
 
     include_once('connect.php'); 
-    include_once('server.php'); 
+    include_once('server.php');
+
 ?>
 
 <!DOCTYPE HTML>
@@ -25,7 +26,8 @@
         <h2 class="punchline">&nbsp;</h2>
         <h2 class="punchline">&nbsp;</h2>
         <h2 class="punchline">&nbsp;</h2>
-        <h2 class="punchline">HEALTH PORTAL</h2>            
+        <h2 class="punchline">HEALTH PORTAL</h2>
+                    
     	<ul>
             <?php if(isset($_SESSION['username'])): ?>
             <li><a href="logout.php">Logout</a></li>
@@ -35,11 +37,56 @@
             <li><a href="Questions.php?sort=title" title="Questions">Questions</a></li>
             <li><a href="" title="ABOUT US">ABOUT US</a></li>           
             <li><a href="index.php">Home</a></li>       
-      </ul>     
+        </ul>     
         <?php  if (isset($_SESSION['username'])) : ?>
     	<p>Welcome <strong><?php echo $_SESSION['username']; ?></strong></p>
-    	<?php endif ?>        
-  </div>             
+    	<?php endif ?>
+        <form action="" method="get" enctype="multipart/form-data">
+            <input type="text" name="search" />
+            <input type="submit" value="Search">
+        </form>
+        </div> 
+        <?php
+        if(isset($_GET))
+        {
+            $title = $_GET['search'];
+
+            $query = "SELECT * FROM project WHERE title LIKE '%".$title. "%'";
+            $tables = $db->prepare($query);
+            $tables->execute();
+            $column = $tables->fetchAll();
+
+            if($tables -> rowCount() != null)
+            {
+                foreach($column as $columnEach)
+                {
+                ?>
+                    <div class="questions_post">
+                        <h3><a href="show.php?id=<?= $row['id'] ?>"><?= $row['title'] ?>"></a></h3>
+                        <img src="<?= 'resize/'.$row['image']?>." alt="" id="image">                    
+                    </div>
+                    <div class="question_content"> 
+                        <?= html_entity_decode($row['content'], $row['id']) ?> 
+                    </div> 
+                    <p>                  
+                      <small> 
+                        <?= date("M d, Y, h:i A", strtotime($row['date'])) ?> - 
+                        <a href="edit.php?id=<?= $row['id'] ?>">edit</a> 
+                      </small> 
+                </p>
+                <?php                        
+                }
+                
+            }else{ 
+                echo "No existing questions.";    
+            }
+        }
+        else{
+        
+        }        
+        ?>
+       
+            
 <!-- HEADER ENDS -->           
 <!-- BODY STARTS -->             
 	<div id="body">             

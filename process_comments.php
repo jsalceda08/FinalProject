@@ -10,10 +10,8 @@
 		$content = filter_input(INPUT_POST, 'content', FILTER_SANITIZE_SPECIAL_CHARS);
 		return strlen($name) > 0 && strlen($content) > 0;
 	}
-
+    require 'connect.php';
 	if(isset($_POST["command"])) {
-
-  		require 'connect.php';
 		$id = filter_input(INPUT_POST,"id", FILTER_VALIDATE_INT);
 
 		if(($_POST["command"] == "Create" || $_POST["command"] == "Update")

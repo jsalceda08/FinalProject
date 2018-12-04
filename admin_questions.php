@@ -84,7 +84,7 @@ if (!isAdmin()) {
 				    <?php while ($row = $statement->fetch()): ?>
                     <tr>
                         <td><?= $row['title'] ?></td>
-                        <td><?= $row['content'] ?></td>
+                        <td><?= html_entity_decode($row['content']) ?></td>
                         <td><img src="<?= 'resize/'.$row['image']?>." alt=""></td>
                         <td><?= $row['date'] ?></td>
                         <td><a href="admin_editquestions.php?id=<?= $row['id'] ?>">edit</a></td>
