@@ -58,7 +58,11 @@
 </head> 
  
 <body> 
-<!-- HEADER STARTS --> 
+<!-- HEADER STARTS -->
+        <form action="" method="get" enctype="multipart/form-data">
+            <input type="text" name="search" />
+            <input type="submit" value="Search">
+        </form> 
     <div id="header"> 
         &nbsp; 
         <h2 class="punchline">&nbsp;</h2> 
@@ -73,7 +77,13 @@
             <?php endif ?>             
             <li><a href="Questions.php" title="Questions">Questions</a></li>      
             <li><a href="" title="ABOUT US">ABOUT US</a></li>            
-            <li><a href="index.php">Home</a></li>             
+            <li><a href="index.php">Home</a></li>
+            <?php if(isset($_SESSION['roles'])): ?>
+                <?php if($_SESSION['roles'] == 'admin'): ?>
+                
+                <li><a href="admin_index.php">Admin Home</a></li>
+                <?php endif ?>
+            <?php endif ?>                           
       </ul>             
   </div>              
 <!-- HEADER ENDS -->              

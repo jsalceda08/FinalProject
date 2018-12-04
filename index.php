@@ -7,8 +7,7 @@
  */
 
     include_once('connect.php'); 
-//    include_once('server.php');
-//    
+    include_once('server.php');
 
 ?>
 
@@ -41,7 +40,13 @@
             <?php endif ?>           
             <li><a href="Questions.php?sort=title" title="Questions">Questions</a></li>
             <li><a href="" title="ABOUT US">ABOUT US</a></li>           
-            <li><a href="index.php">Home</a></li>       
+            <li><a href="index.php">Home</a></li>
+            <?php if(isset($_SESSION['roles'])): ?>
+                <?php if($_SESSION['roles'] == 'admin'): ?>
+                
+                <li><a href="admin_index.php">Admin Home</a></li>
+                <?php endif ?>
+            <?php endif ?>       
         </ul>     
         <?php  if (isset($_SESSION['username'])) : ?>
     	<p>Welcome <strong><?php echo $_SESSION['username']; ?></strong></p>
@@ -52,37 +57,34 @@
         if(isset($_GET['search']))
         {
             $title = $_GET['search'];
-
             $query = "SELECT * FROM project WHERE title LIKE '%".$title. "%'";
-            $tables = $db->prepare($query);
-            $tables->execute();
-            $column = $tables->fetchAll();
+            $statement = $db->prepare($query);
+            $statement->execute();
+            //$column = $tables->fetchAll();
 
-            if($tables -> rowCount() != null)
+            if($statement -> rowCount() != null)
             {
-                foreach($column as $columnEach)
-                {
-                ?>
-                    <div class="questions_post" id="">
-                        <h3><a href="show.php?id=<?= $columnEach['id'] ?>"><?= $columnEach['title'] ?></a></h3>
-                        <img src="<?= 'resize/'.$columnEach['image']?>." alt="" id="image">                    
-                    </div>
-                    <div class="question_content" id=""> 
-                        <?= html_entity_decode($columnEach['content'], $columnEach['id']) ?> 
+                while ($row = $statement->fetch()): ?> 
+                    <div class="question_post"> 
+                    <h3><a href="show.php?id=<?= $row['id'] ?>"><?= $row['title'] ?></a></h3>
+                    <img src="<?= 'resize/'.$row['image']?>." alt="" id="image">
+                    <div class="question_content"> 
+                        <?= html_entity_decode($row['content'], $row['id']) ?> 
                     </div> 
                     <p>                  
                       <small> 
-                        <?= date("M d, Y, h:i A", strtotime($columnEach['date'])) ?> - 
-                        <a href="edit.php?id=<?= $columnEach['id'] ?>">edit</a> 
+                        <?= date("M d, Y, h:i A", strtotime($row['date'])) ?> - 
+                        <a href="edit.php?id=<?= $row['id'] ?>">edit</a> 
                       </small> 
-                </p>
-                <?php
-                }
-                ?>
+                    </p> 
+                    </div> 
+ 
+        <?php endwhile ?>
+ 
                 <!-- FOOTER STARTS -->           
                 <div id="footer">           
                     <ul>           
-                            <li><a href="Questions.php" title="Feedback">Questions</a></li>                              
+                        <li><a href="Questions.php" title="Feedback">Questions</a></li>                              
                         <li><a href="about.html" title="ABOUT US">ABOUT US</a></li>          
                         <li><a href="index.php" title="HOME">HOME</a></li>           
                     </ul>           

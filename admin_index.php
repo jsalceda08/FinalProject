@@ -2,10 +2,10 @@
 include ('server.php');
 include_once('connect.php');
 
-if (!isAdmin()) {
-	$_SESSION['msg'] = "You must log in first";
-	header('location: login.php');
-}   
+    if (!isAdmin()) {
+        $_SESSION['msg'] = "You must log in first";
+        header('location: index.php');
+    }   
 
     $query = "SELECT * FROM users ORDER BY id DESC LIMIT 50;"; 
     $statement = $db->prepare($query);  

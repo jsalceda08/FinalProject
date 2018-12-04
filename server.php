@@ -120,12 +120,14 @@ if (isset($_POST['login_user'])) {
         $logged_in_user = mysqli_fetch_assoc($results);
         if($logged_in_user['roles'] == 'admin'){
              $_SESSION['users'] = $logged_in_user;
-  	         $_SESSION['username'] = $username; 
+  	         $_SESSION['username'] = $username;
+             $_SESSION['roles'] = $logged_in_user['roles'];
   	         $_SESSION['success'] = "You are now logged in"; 
   	         header('location: admin_index.php');            
         }else{
              $_SESSION['users'] = $logged_in_user;
-             $_SESSION['username'] = $username; 
+             $_SESSION['username'] = $username;
+             $_SESSION['roles'] = $logged_in_user['roles'];
              $_SESSION['success'] = "You are now logged in"; 
   	         header('location: index.php');            
         }

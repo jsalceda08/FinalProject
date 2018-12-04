@@ -68,10 +68,21 @@
         <h2 class="punchline">&nbsp;</h2>
         <h2 class="punchline">&nbsp;</h2>
         <h2 class="punchline">HEALTH PORTAL</h2>            
-    	<ul>            
+    	<ul> 
+            <?php if(isset($_SESSION['username'])): ?>
+            <li><a href="logout.php">Logout</a></li>
+            <?php else: ?>       
+            <li><a href="login.php">Login</a></li>
+            <?php endif ?>           
             <li><a href="Questions.php" title="Questions">Questions</a></li>     
             <li><a href="" title="ABOUT US">ABOUT US</a></li>           
-            <li><a href="index.php">Home</a></li>            
+            <li><a href="index.php">Home</a></li>
+            <?php if(isset($_SESSION['roles'])): ?>
+                <?php if($_SESSION['roles'] == 'admin'): ?>
+                
+                <li><a href="admin_index.php">Admin Home</a></li>
+                <?php endif ?>
+            <?php endif ?>              
       </ul>            
   </div>             
 <!-- HEADER ENDS -->             

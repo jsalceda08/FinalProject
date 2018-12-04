@@ -6,10 +6,14 @@
  * Assignment 4
  */
 
-    //require 'authenticate.php';
+    require 'connect.php';
+    include_once('server.php');
+    if (!isAdmin()) {
+        $_SESSION['msg'] = "You must log in first";
+        header('location: index.php');
+    }      
 
     if(isset($_GET['id']) && is_numeric($_GET['id'])) {
-      require 'connect.php';
 
       $id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
 
